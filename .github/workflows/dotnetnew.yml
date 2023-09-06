@@ -48,7 +48,7 @@ jobs:
         run:  Copy-Item "C:\actions-runner\published\*" -Destination "d:\githubdeploy"
  release:
     name: Release pushed tag
-    runs-on: ubuntu-22.04
+    runs-on: self-hosted
     steps:         
       - name: Create release
         env:
