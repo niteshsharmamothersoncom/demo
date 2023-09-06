@@ -20,6 +20,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore 
     - name: Publish
-      run: dotnet publish -c Release -o published
+      run: dotnet publish -c Release -o "C:\actions-runner\published"
     - name: copy_file  
-      run:  Copy-Item "C:\actions-runner\_work\*" -Destination "d:\githubdeploy"
+      run:  Copy-Item "C:\actions-runner\published\*" -Destination "d:\githubdeploy"
