@@ -23,9 +23,7 @@ jobs:
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
-        languages: ${{ matrix.language }}
-    - name: Release notes generator
-      uses: Decathlon/release-notes-generator-action@v3.1.6            
+        languages: ${{ matrix.language }}         
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
