@@ -1,21 +1,16 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
 name: .NET
-
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
 jobs:
   build:
-
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -25,5 +20,6 @@ jobs:
     - name: Build
       run: dotnet build --no-restore 
     - name: Publish
-      run: dotnet publish -c Release -o githubdeploy 
-           Copy-Item "C:\actions-runner\_work\*" -Destination "d:\githubdeploy"
+      run: dotnet publish -c Release -o published
+    - name: copy_file  
+      run:  Copy-Item "C:\actions-runner\_work\*" -Destination "d:\githubdeploy"
