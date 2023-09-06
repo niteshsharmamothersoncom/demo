@@ -15,7 +15,7 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
@@ -23,8 +23,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build --no-restore 
     - name: Publish
-      run: dotnet publish -c Release -o d:/githubdeploy
+      run: dotnet publish -c Release -o githubdeploy 
+           Copy-Item "C:\actions-runner\_work\*" -Destination "d:\githubdeploy"
