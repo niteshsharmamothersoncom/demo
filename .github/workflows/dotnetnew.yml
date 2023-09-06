@@ -21,5 +21,7 @@ jobs:
       run: dotnet build --no-restore 
     - name: Publish
       run: dotnet publish -c Release -o "C:\actions-runner\published"
+    - name: delete_files  
+      run:  Remove-Item "d:\githubdeploy\*"  
     - name: copy_file  
       run:  Copy-Item "C:\actions-runner\published\*" -Destination "d:\githubdeploy"
