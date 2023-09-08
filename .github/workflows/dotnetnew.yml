@@ -44,8 +44,10 @@ jobs:
       - name: Publish
         run: dotnet publish -c Release -o "C:\actions-runner\published"           
       - name: delete_files  
-        run:  Remove-Item "d:\githubdeploy\*"  
+        run:  Remove-Item "d:\githubdeploy\*" 
+              Stop-WebAppPool -Name "emprodemo" 
       - name: copy_file  
         run:  Copy-Item "C:\actions-runner\published\*" -Destination "d:\githubdeploy"
-      - name: Create release 
-        run: gh release create ${GITHUB_REF#refs/*/} -t ${GITHUB_REF#refs/*/} --generate-notes
+               Start-WebAppPool -Name "emprodemo"
+     # - name: Create release 
+     #   run: gh release create ${GITHUB_REF#refs/*/} -t ${GITHUB_REF#refs/*/} --generate-notes
