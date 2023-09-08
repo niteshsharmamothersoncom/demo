@@ -8,7 +8,7 @@ on:
 jobs:
  analyze:
   name: Analyze
-  runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+  runs-on: ${{'ubuntu-latest' || 'self-hosted'}}
   timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
   permissions:
       actions: read
@@ -17,7 +17,7 @@ jobs:
   strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'javascript' ]
+        language: [ 'csharp']
   steps:
     - name: Checkout repository
       uses: actions/checkout@v3 
@@ -47,15 +47,11 @@ jobs:
         run:  Remove-Item "d:\githubdeploy\*"  
       - name: copy_file  
         run:  Copy-Item "C:\actions-runner\published\*" -Destination "d:\githubdeploy"
- release:
-    name: Release pushed tag
-    runs-on: self-hosted
-    steps:         
       - name: Create release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          tag: ${{ github.ref_name }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            tag: ${{ github.ref_name }}
         run: |
-          gh release create "$tag"  \
-              --title = ${{ github.ref_name }}  \
-              --generate-notes
+            gh release create "$tag"  \
+                --title = ${{ github.ref_name }}  \
+                --generate-notes
