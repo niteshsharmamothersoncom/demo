@@ -42,12 +42,14 @@ jobs:
       - name: Build
         run: dotnet build --no-restore 
       - name: Publish
-        run: dotnet publish -c Release -o "C:\actions-runner\published"           
+        run: dotnet publish -c Release -o "C:\actions-runner\published"  
+      - name: stoping webpool 
+        run:  Stop-WebAppPool -Name "emprodemo"
       - name: delete_files  
-        run:  Remove-Item "d:\githubdeploy\*" 
-              Stop-WebAppPool -Name "emprodemo" 
+        run:  Remove-Item "d:\githubdeploy\*"  
       - name: copy_file  
         run:  Copy-Item "C:\actions-runner\published\*" -Destination "d:\githubdeploy"
-               Start-WebAppPool -Name "emprodemo"
+      - name: start webapppol
+        run: Start-WebAppPool -Name "emprodemo"
      # - name: Create release 
      #   run: gh release create ${GITHUB_REF#refs/*/} -t ${GITHUB_REF#refs/*/} --generate-notes
